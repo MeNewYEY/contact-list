@@ -10,6 +10,7 @@ export const AddContact = () => {
 	const onSubmit = data => {
 		actions.addNewContact(data);
 	};
+
 	return (
 		<div className="container">
 			<div>

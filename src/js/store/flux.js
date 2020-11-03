@@ -5,9 +5,9 @@ const getState = ({ getStore, setStore }) => {
 		},
 
 		actions: {
-			addNewContact: newContact => {
+			addNewContact: async newContact => {
 				try {
-					fetch("https://assets.breatheco.de/apis/fake/contact/", {
+					const response = await fetch("https://assets.breatheco.de/apis/fake/contact/", {
 						method: "POST",
 						headers: { "Content-Type": "application/json" },
 						body: JSON.stringify({
@@ -18,11 +18,30 @@ const getState = ({ getStore, setStore }) => {
 							phone: newContact.phone
 						})
 					});
+					window.location.href = "../";
 				} catch (error) {
 					console.log(error);
 				}
 			},
-			updateContact: (id, full_name, email, agenda_slug, address, phone) => {},
+			editContact: async each => {
+				try {
+					const url = `https://assets.breatheco.de/apis/fake/contact/${each.id}`;
+					const response = await fetch(url, {
+						method: "PUT",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({
+							full_name: each.full_name,
+							email: each.email,
+							agenda_slug: "yahilyn",
+							address: each.address,
+							phone: each.phone
+						})
+					});
+					window.location.href = "../";
+				} catch (error) {
+					console.log(error);
+				}
+			},
 
 			deleteContact: async id => {
 				try {
